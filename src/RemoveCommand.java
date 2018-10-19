@@ -8,6 +8,7 @@ public class RemoveCommand implements Command {
 
     @Override
     public void execute() {
+
         database.remove(key);
     }
 

@@ -9,6 +9,7 @@ public class AddCommand implements Command{
     }
 
     public void execute(){
+
         database.add(key,value);
     }
     public void undo(){

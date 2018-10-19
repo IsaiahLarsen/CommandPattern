@@ -1,5 +1,3 @@
-
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,19 +11,16 @@ public class Database implements DatabaseInterface {
         this.id = id;
     }
 
-    @Override
-    public String getId(){
-        return id;
-    }
 
     @Override
     public void add(String key, String value) {
         if(data.containsKey(key)){
-            System.out.println("Database already exist");
+            System.out.println("Database key already exist");
+        }else {
+            data.put(key, value);
+            prevCommand = "A";
+            display();
         }
-        data.put(key,value);
-        prevCommand = "A";
-        display();
     }
 
     @Override
@@ -36,7 +31,6 @@ public class Database implements DatabaseInterface {
             data.replace(key, value);
             prevCommand = "U";
             display();
-            System.out.println("updated " + data.toString());
         }
     }
 
@@ -53,6 +47,7 @@ public class Database implements DatabaseInterface {
 
     @Override
     public void display() {
+        System.out.println("Database " + id);
         System.out.println(data.toString());
     }
 }

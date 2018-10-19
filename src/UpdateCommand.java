@@ -9,6 +9,7 @@ public class UpdateCommand implements Command {
     }
 
     public void execute(){
+
         database.update(key, value);
 
     }

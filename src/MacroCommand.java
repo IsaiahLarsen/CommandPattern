@@ -1,21 +1,24 @@
-public class MacroCommand implements Command {
-    Command[] commands;
+import java.util.ArrayList;
+import java.util.List;
 
-    public MacroCommand(Command[] commands) {
+public class MacroCommand implements Command {
+    List<Command> commands;
+
+    public MacroCommand(List<Command> commands) {
         this.commands = commands;
     }
 
     @Override
     public void execute() {
-        for(int i = 0; i < commands.length; i++){
-            commands[i].execute();
+        for(Command c : commands){
+            c.execute();
         }
     }
 
     @Override
     public void undo() {
-        for(int i = 0; i < commands.length; i++){
-            commands[i].execute();
+        for(Command c : commands){
+            c.undo();
         }
     }
 }

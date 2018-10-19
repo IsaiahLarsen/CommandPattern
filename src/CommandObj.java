@@ -1,20 +1,20 @@
-public class DatabaseObj {
+public class CommandObj {
     private String command;
     private String id;
     private String key;
     private String value;
 
-    public DatabaseObj(String command){
+    public CommandObj(String command){
         this.command = command;
     }
 
-    public DatabaseObj(String command, String id, String key) {
+    public CommandObj(String command, String id, String key) {
         this.command = command;
         this.id = id;
         this.key = key;
     }
 
-    public DatabaseObj(String command, String id, String key, String value) {
+    public CommandObj(String command, String id, String key, String value) {
         this.command = command;
         this.id = id;
         this.key = key;

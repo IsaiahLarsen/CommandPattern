@@ -7,7 +7,12 @@ public class Invoker {
     }
 
     public void performCommand(){
+
         command.execute();
+    }
+    
+    public void undoCommand(){
+        command.undo();
     }
 
 }

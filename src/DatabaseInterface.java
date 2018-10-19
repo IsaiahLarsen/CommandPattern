@@ -5,5 +5,4 @@ public interface DatabaseInterface {
     public void update(String key, String value);
     public void remove(String key);
     public void display();
-    public String getId();
 }
