@@ -1,9 +1,13 @@
 public class Invoker {
-    Command[] commands;
-    private int i = 0;
+    Command command;
+
     public void setCommand(Command c){
-        commands[i] = c;
-        i++;
+        command = c;
+
+    }
+
+    public void performCommand(){
+        command.execute();
     }
 
 }
