@@ -3,11 +3,15 @@ import java.util.List;
 
 public class MacroCommand implements Command {
     List<Command> commands;
+    private String name = "Macro";
 
     public MacroCommand(List<Command> commands) {
         this.commands = commands;
     }
 
+    public String getName(){
+        return name;
+    }
     @Override
     public void execute() {
         for(Command c : commands){
@@ -17,8 +21,8 @@ public class MacroCommand implements Command {
 
     @Override
     public void undo() {
-        for(Command c : commands){
-            c.undo();
+        for(int i = commands.size() - 1; i > commands.size(); i--){
+            commands.get(i).undo();
         }
     }
 }

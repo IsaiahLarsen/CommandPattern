@@ -1,8 +1,7 @@
 A one keyOne valueOne
-A one keyOne valueOne
+A two keyOne valueOne
 B
-U one keyOne newVal e
-A one keyTwo valtwo
+A one keyTwo valTwo
+U one keyTwo 222
 E
-R one keyTwo
-A two keyOne val2U
+R two keyOne

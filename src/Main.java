@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String fileName;
+        UndoManager undoManager = new UndoManager();
         List<Database> databases = new LinkedList<>();
         List<CommandObj> commandObjs = new ArrayList<>();
         CommandObj obj;
@@ -69,22 +70,26 @@ public class Main {
                             add.setKey(d.getKey());
                             add.setValue(d.getValue());
                             commands.add(add);
+                            undoManager.addUndoCommand(add);
                             break;
                         case "U":
                             UpdateCommand update = new UpdateCommand(databases.get(index));
                             update.setKey(d.getKey());
                             update.setValue(d.getValue());
                             commands.add(update);
+                            undoManager.addUndoCommand(update);
                             break;
                         case "R":
                             RemoveCommand remove = new RemoveCommand(databases.get(index));
                             remove.setKey(d.getKey());
                             commands.add(remove);
+                            undoManager.addUndoCommand(remove);
                             break;
                         case "E":
                             System.out.println("End of Macro");
                             mc = new MacroCommand(commands);
                             invoker.setCommand(mc);
+                            undoManager.addUndoCommand(mc);
                             invoker.performCommand();
                             macro = false;
                             break;
@@ -102,6 +107,7 @@ public class Main {
                                 AddCommand add = new AddCommand(db);
                                 add.setKey(d.getKey());
                                 add.setValue(d.getValue());
+                                undoManager.addUndoCommand(add);
                                 break;
                             case "R":
                                 System.out.println("That database doesn't exist");
@@ -114,8 +120,13 @@ public class Main {
                         System.out.println("End of Macro");
                         mc = new MacroCommand(commands);
                         invoker.setCommand(mc);
+                        undoManager.addUndoCommand(mc);
                         invoker.performCommand();
                         macro = false;
+                        System.out.println("Database(s) After Macro Commands----------");
+                        for(Database data: databases){
+                            data.display();
+                        }
                     }
 
                 }
@@ -134,17 +145,20 @@ public class Main {
                             add.setKey(d.getKey());
                             add.setValue(d.getValue());
                             invoker.setCommand(add);
+                            undoManager.addUndoCommand(add);
                             break;
                         case "U":
                             UpdateCommand update = new UpdateCommand(databases.get(index));
                             update.setKey(d.getKey());
                             update.setValue(d.getValue());
                             invoker.setCommand(update);
+                            undoManager.addUndoCommand(update);
                             break;
                         case "R":
                             RemoveCommand remove = new RemoveCommand(databases.get(index));
                             remove.setKey(d.getKey());
                             invoker.setCommand(remove);
+                            undoManager.addUndoCommand(remove);
                             break;
                         case "B":
                             System.out.println("Starting Macro");
@@ -166,6 +180,7 @@ public class Main {
                                 add.setKey(d.getKey());
                                 add.setValue(d.getValue());
                                 invoker.setCommand(add);
+                                undoManager.addUndoCommand(add);
                                 break;
                             default:
                                 System.out.println("No command given");
@@ -179,9 +194,25 @@ public class Main {
                             macro = true;
                     }
                 }//no macro new database creation
+                System.out.println("Database(s) After command----------");
+                for(Database data: databases){
+                    data.display();
+                }
             }//no macro else
 
         }//End of For Loop
+
+        //-------------------------Undo----------------------------
+        while(!undoManager.isStackEmpty()){
+            Command c = undoManager.getUndoCommand();
+            invoker.setCommand(c);
+            System.out.println("Undid Command: " + c.getName());
+            invoker.undoCommand();
+            System.out.println("Current State of Databases after undo");
+            for(Database data: databases){
+                data.display();
+            }
+        }
         System.out.println("Final Status of Databases");
         for(Database data: databases){
             data.display();

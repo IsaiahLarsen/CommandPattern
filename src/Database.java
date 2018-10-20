@@ -3,7 +3,6 @@ import java.util.Map;
 
 public class Database implements DatabaseInterface {
     Map<String, String> data = new HashMap<>();
-    String prevCommand = null;
     String id;
 
 
@@ -11,6 +10,9 @@ public class Database implements DatabaseInterface {
         this.id = id;
     }
 
+    public String getId(){
+        return id;
+    }
 
     @Override
     public void add(String key, String value) {
@@ -18,8 +20,6 @@ public class Database implements DatabaseInterface {
             System.out.println("Database key already exist");
         }else {
             data.put(key, value);
-            prevCommand = "A";
-            display();
         }
     }
 
@@ -29,8 +29,6 @@ public class Database implements DatabaseInterface {
             System.out.println("No key named" + key + " exist");
         } else {
             data.replace(key, value);
-            prevCommand = "U";
-            display();
         }
     }
 
@@ -38,8 +36,6 @@ public class Database implements DatabaseInterface {
     public void remove(String key) {
        if(data.containsKey(key)){
            data.remove(key);
-           prevCommand = "R";
-           display();
        }else{
            System.out.println("This key doesn't exist cannot remove");
        }
@@ -48,6 +44,7 @@ public class Database implements DatabaseInterface {
     @Override
     public void display() {
         System.out.println("Database " + id);
-        System.out.println(data.toString());
+        System.out.println(data.toString() + "\n");
     }
+
 }
