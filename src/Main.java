@@ -9,20 +9,18 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
         String fileName;
         UndoManager undoManager = new UndoManager();
         List<Database> databases = new LinkedList<>();
         List<CommandObj> commandObjs = new ArrayList<>();
         CommandObj obj;
         MacroCommand mc;
-        System.out.println("Please enter file name for commands: ");
-        fileName = in.next();
         String st;
         String[] s;
         Invoker invoker = new Invoker();
         List<String> databaseCreated = new ArrayList<>();
         String val = null;
+        fileName = args[0];
         //Read commands into a list of objects
         try {
             File file = new File(fileName);
